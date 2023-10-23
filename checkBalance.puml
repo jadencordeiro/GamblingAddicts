@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+mainframe sd checkBalance (user User): float
+
+[->"user: User": getBalance(): float
+activate "user: User"
+
+
+"user: User" -> "wallet: Wallet": getBalance()
+activate "wallet: Wallet"
+return balance
+
+
+@enduml
