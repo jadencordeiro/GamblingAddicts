@@ -1,0 +1,61 @@
+@startuml
+'https://plantuml.com/class-diagram
+!pragma layout smetana
+
+class User {
+
+private String name
+private String name
+private final Wallet wallet
+private ArrayList<Bets> bets
+
+getters()
+setters()
+}
+
+class Bets{
+
+private float odds
+private Event event
+private final boolean result;
+private final float wager
+
+getters()
+setters()
+}
+
+class Events{
+
+private String title
+private dateTime date
+private Hashmap score
+private boolean result
+
+getters()
+setters()
+
+}
+
+class Schedule{
+
+private ArrayList<Events> events
+
+getters()
+setters()
+}
+
+class Wallet{
+
+private float balance
+
+getters()
+setters()
+}
+
+Events -> Schedule
+Events -> Bets
+Bets -> User
+Wallet -> User
+
+
+@enduml
