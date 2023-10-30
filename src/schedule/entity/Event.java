@@ -5,11 +5,11 @@ import java.util.HashMap;
 
 public class Event {
 
-    private String home;
-    private String away;
-    private Date date;
+    final private String home;
+    final private String away;
+    final private Date date;
     private HashMap<String, Integer> score;
-    final private boolean result;
+    private boolean result;
 
     public Event(String home, String away, Date date){
         this.home = home;
@@ -17,4 +17,11 @@ public class Event {
         this.date = date;
     }
 
+    public HashMap<String, Integer> getScore() {
+        return score;
+    }
+
+    public void setScore(HashMap<String, Integer> score) {
+        this.score = score;
+    }
 }
