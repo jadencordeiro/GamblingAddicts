@@ -7,6 +7,7 @@
 
 ## Entities:
 * User
+* Wallet
 * Event
 * Schedule
 * Bet
