@@ -1,6 +1,7 @@
 package schedule.data_access;
 
 import schedule.entity.Event;
+import schedule.service.refresh.RefreshScheduleDataAccessInterface;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -8,7 +9,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ScheduleDataAccessObject {
+public class ScheduleDataAccessObject implements RefreshScheduleDataAccessInterface {
 
     private final File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -31,17 +32,28 @@ public class ScheduleDataAccessObject {
                 String header = reader.readLine();
 
                 // For later: clean this up by creating a new Exception subclass and handling it in the UI.
-                assert header.equals("id, home , away, date");
+                assert header.equals("id, home, away, date");
 
                 String row;
                 while ((row = reader.readLine()) != null) {
                     String[] col = row.split(",");
+                    String idText = String.valueOf(col[headers.get("id")]);
+                    int id = Integer.parseInt(idText);
                     String home = String.valueOf(col[headers.get("home")]);
                     String away = String.valueOf(col[headers.get("away")]);
-
+                    String dateText = String.valueOf(col[headers.get("date")]);
+                    LocalDateTime date = LocalDateTime.parse(dateText);
+                    Event event = new Event(id, home, away, date);
+                    events.put(event.getTitle(), event);
                 }
             }
         }
+    }
+
+    @Override
+    public void save(Event event){
+        events.put(event.getTitle(), event);
+        this.save();
     }
 
     private void save() {
@@ -52,7 +64,7 @@ public class ScheduleDataAccessObject {
             writer.newLine();
 
             for (Event event: events.values()) {
-                String line = String.format("%s,%s,%s",
+                String line = String.format("%s,%s,%s,%s",
                         event.getId(), event.getHome(), event.getAway(), event.getDate());
                 writer.write(line);
                 writer.newLine();
@@ -63,6 +75,11 @@ public class ScheduleDataAccessObject {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public boolean existsByName(String identifier) {
+        return events.containsKey(identifier);
     }
 }
 

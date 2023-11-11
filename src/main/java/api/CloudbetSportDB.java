@@ -6,8 +6,8 @@ import org.json.JSONObject;
 import schedule.entity.Event;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class CloudbetSportDB implements SportDB {
 
@@ -17,10 +17,10 @@ public class CloudbetSportDB implements SportDB {
     public static String getApiToken(){return API_TOKEN;}
 
     @Override
-    public ArrayList<Event> getEvents(Date date) {
+    public ArrayList<Event> getEvents(LocalDateTime date) {
         OkHttpClient client = new OkHttpClient().newBuilder().build();
         Request request = new Request.Builder()
-                .url(String.format(API_URL + "/v2/odds/fixtures?sport=american_football&date=%s", date))
+                .url(String.format(API_URL + "/v2/odds/fixtures?sport=american_football&date=%s", date.toLocalDate()))
                 .addHeader("X-API-Key", API_TOKEN)
                 .addHeader("Content-Type", "application/json")
                 .build();
@@ -36,7 +36,10 @@ public class CloudbetSportDB implements SportDB {
                 JSONArray events = extractNFL(competitions);
                 for (int i = 0; i < events.length(); i++) {
                     JSONObject event = events.getJSONObject(i);
-                    Event game = new Event(event.getInt("id"), event.getJSONObject("home").getString("name"), event.getJSONObject("away").getString("name"), date);
+                    Event game = new Event(event.getInt("id"),
+                                 event.getJSONObject("home").getString("name"),
+                                 event.getJSONObject("away").getString("name"),
+                                 LocalDateTime.parse(event.getString("cutoffTime")));
                     games.add(game);
                 }
                 return games;

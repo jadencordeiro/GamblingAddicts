@@ -1,17 +1,17 @@
 package schedule.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 public class Event {
     final private int id;
     final private String home;
     final private String away;
-    final private Date date;
+    final private LocalDateTime date;
     private Map<String, Integer> score;
     private boolean result;
 
-    public Event(int id, String home, String away, Date date){
+    public Event(int id, String home, String away, LocalDateTime date){
         this.id = id;
         this.home = home;
         this.away = away;
@@ -33,7 +33,7 @@ public class Event {
         return away;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
@@ -48,5 +48,9 @@ public class Event {
         } else {
             this.score.put(away, score);
         }
+    }
+
+    public String getTitle() {
+        return home + " vs " + away;
     }
 }
