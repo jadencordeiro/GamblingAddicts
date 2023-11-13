@@ -1,6 +1,4 @@
-package user;
-
-import wallet.Wallet;
+package user.entity;
 
 public class User {
 
@@ -25,5 +23,7 @@ public class User {
     public String getPassword(){
         return this.password;
     }
+
+    public Wallet getWallet() { return this.wallet; }
 
 }

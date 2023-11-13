@@ -1,4 +1,6 @@
-package wallet;
+package user.entity;
+
+import bet.Bet;
 
 import java.util.ArrayList;
 
@@ -31,7 +33,7 @@ public class Wallet {
         }
     }
 // Add bet is giving an error because bet isn't implemented yet
-//    public void addBet(Bet bet){
-//        this.bets.add(bet);
-//    }
+    public void addBet(Bet bet){
+        this.bets.add(bet);
+    }
 }
