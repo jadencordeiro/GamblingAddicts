@@ -1,6 +1,7 @@
 package schedule.data_access;
 
 import schedule.entity.Event;
+import schedule.entity.EventFactory;
 import schedule.service.refresh.RefreshScheduleDataAccessInterface;
 
 import java.io.*;
@@ -16,7 +17,10 @@ public class ScheduleDataAccessObject implements RefreshScheduleDataAccessInterf
 
     private final Map<String, Event> events = new HashMap<>();
 
-    public ScheduleDataAccessObject(String csvPath) throws IOException {
+    private EventFactory eventFactory;
+
+    public ScheduleDataAccessObject(String csvPath, EventFactory eventFactory) throws IOException {
+        this.eventFactory = eventFactory;
 
         csvFile = new File(csvPath);
         headers.put("id", 0);
@@ -43,7 +47,7 @@ public class ScheduleDataAccessObject implements RefreshScheduleDataAccessInterf
                     String away = String.valueOf(col[headers.get("away")]);
                     String dateText = String.valueOf(col[headers.get("date")]);
                     LocalDateTime date = LocalDateTime.parse(dateText);
-                    Event event = new Event(id, home, away, date);
+                    Event event = eventFactory.create(id, home, away, date);
                     events.put(event.getTitle(), event);
                 }
             }
@@ -63,7 +67,7 @@ public class ScheduleDataAccessObject implements RefreshScheduleDataAccessInterf
             writer.write(String.join(",", headers.keySet()));
             writer.newLine();
 
-            for (Event event: events.values()) {
+            for (Event event : events.values()) {
                 String line = String.format("%s,%s,%s,%s",
                         event.getId(), event.getHome(), event.getAway(), event.getDate());
                 writer.write(line);
@@ -75,6 +79,10 @@ public class ScheduleDataAccessObject implements RefreshScheduleDataAccessInterf
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Map<String, Event> getEvents() {
+        return events;
     }
 
     @Override
