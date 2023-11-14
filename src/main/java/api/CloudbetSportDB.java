@@ -3,11 +3,9 @@ import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import schedule.entity.Event;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public class CloudbetSportDB implements SportDB {
 
@@ -17,7 +15,7 @@ public class CloudbetSportDB implements SportDB {
     public static String getApiToken(){return API_TOKEN;}
 
     @Override
-    public ArrayList<Event> getEvents(LocalDateTime date) {
+    public JSONArray getEvents(LocalDateTime date) {
         OkHttpClient client = new OkHttpClient().newBuilder().build();
         Request request = new Request.Builder()
                 .url(String.format(API_URL + "/v2/odds/fixtures?sport=american_football&date=%s", date.toLocalDate()))
@@ -32,18 +30,7 @@ public class CloudbetSportDB implements SportDB {
 
             if (response.code() == 200) {
                 JSONArray competitions = responseBody.getJSONArray("competitions");
-                ArrayList games = new ArrayList<>();
-                JSONArray events = extractNFL(competitions);
-                for (int i = 0; i < events.length(); i++) {
-                    JSONObject event = events.getJSONObject(i);
-                    Event game = new Event(event.getInt("id"),
-                                 event.getJSONObject("home").getString("name"),
-                                 event.getJSONObject("away").getString("name"),
-                                 LocalDateTime.parse(event.getString("cutoffTime")));
-                    games.add(game);
-                }
-                return games;
-
+                return extractNFL(competitions);
             } else {
                 throw new RuntimeException(responseBody.getString("message"));
             }
