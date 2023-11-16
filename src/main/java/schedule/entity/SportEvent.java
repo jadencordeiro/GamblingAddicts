@@ -8,7 +8,6 @@ public class SportEvent implements Event {
     final private String home;
     final private String away;
     final private LocalDateTime date;
-    private Map<String, Integer> score;
     private boolean result;
 
     public SportEvent(int id, String home, String away, LocalDateTime date){
@@ -16,8 +15,6 @@ public class SportEvent implements Event {
         this.home = home;
         this.away = away;
         this.date = date;
-        score.put(home, 0);
-        score.put(away, 0);
     }
 
 
@@ -37,20 +34,15 @@ public class SportEvent implements Event {
         return date;
     }
 
-    public Integer getScore(boolean team) {
-        if (team) { return score.get(home);}
-        return score.get(away);
-    }
-
-    public void setScore(boolean team, Integer score) {
-        if (team) {
-            this.score.put(home, score);
-        } else {
-            this.score.put(away, score);
-        }
-    }
-
     public String getTitle() {
         return home + " vs " + away;
+    }
+
+    public void setResult(String winner){
+        result = home.equals(winner);
+    }
+
+    public boolean getResult() {
+        return result;
     }
 }

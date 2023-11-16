@@ -16,5 +16,7 @@ public class RefreshPresenter implements RefreshOutputBoundary {
 
     @Override
     public void prepareSuccessView(RefreshOutputData response) {
+        ScheduleState scheduleState = scheduleViewModel.getState();
+        scheduleViewModel.firePropertyChanged();
     }
 }
