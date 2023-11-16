@@ -5,7 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class CloudbetSportDB implements SportDB {
 
@@ -15,10 +15,10 @@ public class CloudbetSportDB implements SportDB {
     public static String getApiToken(){return API_TOKEN;}
 
     @Override
-    public JSONArray getEvents(LocalDateTime date) {
+    public JSONArray getEvents() {
         OkHttpClient client = new OkHttpClient().newBuilder().build();
         Request request = new Request.Builder()
-                .url(String.format(API_URL + "/v2/odds/fixtures?sport=american_football&date=%s", date.toLocalDate()))
+                .url(String.format(API_URL + "/v2/odds/fixtures?sport=american_football&date=%s", LocalDate.now()))
                 .addHeader("X-API-Key", API_TOKEN)
                 .addHeader("Content-Type", "application/json")
                 .build();

@@ -15,6 +15,6 @@ public class RefreshController {
 
     public void execute(){
         RefreshInputData refreshInputData = new RefreshInputData();
-        refreshUseCaseInteractor.execute(refreshInputData);
+        refreshUseCaseInteractor.execute();
     }
 }
