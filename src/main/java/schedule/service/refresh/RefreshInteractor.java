@@ -23,10 +23,9 @@ public class RefreshInteractor implements RefreshInputBoundary{
     }
 
     @Override
-    public void execute(RefreshInputData refreshInputData) {
+    public void execute() {
 
-
-        ArrayList<Event> events = UnpackJSONArray(sportDB.getEvents(refreshInputData.getDate()));
+        ArrayList<Event> events = UnpackJSONArray(sportDB.getEvents());
         for (Event event: events){
             if (!scheduleDataAccessObject.existsByName(event.getTitle())){
                 scheduleDataAccessObject.save(event);
@@ -39,10 +38,10 @@ public class RefreshInteractor implements RefreshInputBoundary{
         ArrayList<Event> games = new ArrayList<>();
         for (int i = 0; i < events.length(); i++) {
             JSONObject event = events.getJSONObject(i);
-            Event game = eventFactory.create(event.getInt("id"),
-                    event.getJSONObject("home").getString("name"),
-                    event.getJSONObject("away").getString("name"),
-                    LocalDateTime.parse(event.getString("cutoffTime")));
+            Event game = eventFactory.create(event.getInt("GameKey"),
+                    event.getString("HomeTeam"),
+                    event.getString("AwayTeam"),
+                    LocalDateTime.parse(event.getString("Date")));
             games.add(game);
         }
         return games;

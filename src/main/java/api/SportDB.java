@@ -5,5 +5,5 @@ import java.time.LocalDateTime;
 
 public interface SportDB {
 
-    JSONArray getEvents(LocalDateTime date);
+    JSONArray getEvents();
 }
