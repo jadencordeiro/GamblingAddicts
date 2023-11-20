@@ -14,4 +14,7 @@ public interface Event {
 
     String getTitle();
 
+    boolean getResult();
+
+    float calculateOdds();
 }

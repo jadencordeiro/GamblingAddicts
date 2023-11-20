@@ -1,7 +1,6 @@
 package schedule.entity;
 
 import java.time.LocalDateTime;
-import java.util.Map;
 
 public class SportEvent implements Event {
     final private int id;
@@ -45,4 +44,7 @@ public class SportEvent implements Event {
     public boolean getResult() {
         return result;
     }
+
+    // calculated using API
+    public float calculateOdds(){return 0.0F;}
 }
