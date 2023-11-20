@@ -27,6 +27,7 @@ public class ScheduleDataAccessObject implements RefreshScheduleDataAccessInterf
         headers.put("home", 1);
         headers.put("away", 2);
         headers.put("date", 3);
+        headers.put("week", 4);
 
         if (csvFile.length() == 0) {
             save();
@@ -36,7 +37,7 @@ public class ScheduleDataAccessObject implements RefreshScheduleDataAccessInterf
                 String header = reader.readLine();
 
                 // For later: clean this up by creating a new Exception subclass and handling it in the UI.
-                assert header.equals("id, home, away, date");
+                assert header.equals("id, home, away, date, week");
 
                 String row;
                 while ((row = reader.readLine()) != null) {
@@ -47,7 +48,8 @@ public class ScheduleDataAccessObject implements RefreshScheduleDataAccessInterf
                     String away = String.valueOf(col[headers.get("away")]);
                     String dateText = String.valueOf(col[headers.get("date")]);
                     LocalDateTime date = LocalDateTime.parse(dateText);
-                    Event event = eventFactory.create(id, home, away, date);
+                    String week = String.valueOf(col[headers.get("week")]);
+                    Event event = eventFactory.create(id, home, away, date, week);
                     events.put(event.getTitle(), event);
                 }
             }
@@ -83,6 +85,11 @@ public class ScheduleDataAccessObject implements RefreshScheduleDataAccessInterf
 
     public Map<String, Event> getEvents() {
         return events;
+    }
+
+    @Override
+    public void delete(Event event) {
+        events.remove(event.getTitle());
     }
 
     @Override
