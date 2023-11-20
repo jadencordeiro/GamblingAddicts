@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 
 public class SportDataIODB implements SportDB {
 
-    private static final String API_URL = "https://api.sportsdata.io/v3/nfl/scores/json";
+    private static final String API_URL = "https://api.sportsdata.io/v3/nfl/odds/json";
     private static final String API_TOKEN = System.getenv("API_TOKEN");
     private static LocalDate callDate;
     private static String week;
@@ -27,7 +27,7 @@ public class SportDataIODB implements SportDB {
         updateVariables();
         OkHttpClient client = new OkHttpClient().newBuilder().build();
         Request request = new Request.Builder()
-                .url(String.format(API_URL + "/ScoresByWeek/{%s}/{%s}?key=%s", season, week, API_TOKEN)).build();
+                .url(String.format(API_URL + "/GameOddsByWeek/{%s}/{%s}?key=%s", season, week, API_TOKEN)).build();
 
         try {
             Response response = client.newCall(request).execute();
@@ -44,7 +44,7 @@ public class SportDataIODB implements SportDB {
         }
     }
 
-    private String getSeason() {
+    public static String getSeason() {
         OkHttpClient client = new OkHttpClient().newBuilder().build();
         Request request = new Request.Builder()
                 .url(String.format(API_URL + "/CurrentSeason?key=%s", API_TOKEN)).build();
@@ -64,7 +64,7 @@ public class SportDataIODB implements SportDB {
         }
     }
 
-    private String getWeek() {
+    public static String getWeek() {
         OkHttpClient client = new OkHttpClient().newBuilder().build();
         Request request = new Request.Builder().url(String.format(API_URL + "/CurrentWeek?key=%s", API_TOKEN)).build();
 

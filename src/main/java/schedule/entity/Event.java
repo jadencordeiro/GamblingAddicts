@@ -14,7 +14,18 @@ public interface Event {
 
     String getTitle();
 
-    boolean getResult();
+    String getWeek();
 
-    float calculateOdds();
+    void setActivity(int i);
+
+    void setHomeScore(int homeScore);
+
+    void setAwayScore(int awayScore);
+
+    void setHomeOdds(int homeOdds);
+
+    void setAwayOdds(int awayOdds);
+
+    int getHomeOdds();
+    int getAwayOdds();
 }

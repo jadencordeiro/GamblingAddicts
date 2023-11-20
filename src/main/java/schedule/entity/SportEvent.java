@@ -7,13 +7,22 @@ public class SportEvent implements Event {
     final private String home;
     final private String away;
     final private LocalDateTime date;
-    private boolean result;
+    final private String week;
+    private boolean result; // true if home is winner, false if away is winner
+    private int activity = -1; // -1 game is yet to start, 0 game in progress, 1 game completed
+    private int homeScore = 0;
+    private int awayScore = 0;
 
-    public SportEvent(int id, String home, String away, LocalDateTime date){
+    private int homeOdds = 0;
+    private int awayOdds = 0;
+
+
+    public SportEvent(int id, String home, String away, LocalDateTime date, String week){
         this.id = id;
         this.home = home;
         this.away = away;
         this.date = date;
+        this.week = week;
     }
 
 
@@ -44,7 +53,48 @@ public class SportEvent implements Event {
     public boolean getResult() {
         return result;
     }
+  
+    public void setActivity(int i) {
+        activity = i;
+    }
 
-    // calculated using API
-    public float calculateOdds(){return 0.0F;}
+    public int getActivity(){
+        return activity;
+    }
+
+    public String getWeek() {
+        return week;
+    }
+
+    public int getHomeScore() {
+        return homeScore;
+    }
+
+    public int getAwayScore() {
+        return awayScore;
+    }
+
+    public void setHomeScore(int homeScore) {
+        this.homeScore = homeScore;
+    }
+
+    public void setAwayScore(int awayScore) {
+        this.awayScore = awayScore;
+    }
+
+    public void setHomeOdds(int homeOdds) {
+        this.homeOdds = homeOdds;
+    }
+
+    public void setAwayOdds(int awayOdds) {
+        this.awayOdds = awayOdds;
+    }
+
+    public int getHomeOdds() {
+        return homeOdds;
+    }
+
+    public int getAwayOdds() {
+        return awayOdds;
+    }
 }
