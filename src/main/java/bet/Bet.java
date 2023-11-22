@@ -6,7 +6,7 @@ import schedule.entity.Event;
 public class Bet {
 
     // moved the "odds" part to Events, delete getOdds method
-    // Initializing betting event, team, and amount.
+    // Initializing betting event, betting side, and amount.
     private Event event;
 
     private float wager;
@@ -32,8 +32,10 @@ public class Bet {
     // True when betting on Home, False when betting on Away
     public boolean getBettingSide() {return this.betOnHome;}
 
-    public float payout(){
-        if (event.getResult()){return this.getWager() * event.calculateOdds();}
+    public double payout(){
+        if (event.getResult() == this.getBettingSide() == true){return this.getWager() * event.getHomeOdds();}
+        else if (event.getResult() == this.getBettingSide() == false){return this.getWager() * event.getAwayOdds();}
         else return 0.0F;
+        // pay if bet placed on the winning team
     }
 }

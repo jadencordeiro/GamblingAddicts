@@ -26,6 +26,8 @@ public interface Event {
 
     void setAwayOdds(int awayOdds);
 
+    boolean getResult();
+
     int getHomeOdds();
     int getAwayOdds();
 }

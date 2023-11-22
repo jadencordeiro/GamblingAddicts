@@ -32,6 +32,7 @@ public class Wallet {
             this.balance += addition;
         }
     }
+    // shall we add a precondition that addition >= 0 here, so we could omit the "if" part?
 
     // Add bet is giving an error because bet isn't implemented yet
     public void addBet(Bet bet) throws InsufficientFundsException {
@@ -43,7 +44,6 @@ public class Wallet {
     }
 
     public class InsufficientFundsException extends Exception {
-
         public InsufficientFundsException() {
             super("Insufficient funds in the account.");
         }
@@ -52,6 +52,6 @@ public class Wallet {
     public void settlement() {
         for (Bet bet : bets) {balance += bet.payout();}
     }
+    // payout all bets in the Bet array.
 }
 
-// Error msg needed when insufficient funds
