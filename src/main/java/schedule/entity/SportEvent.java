@@ -52,8 +52,9 @@ public class SportEvent implements Event {
 
     public boolean getResult() {
         return result;
+        // Return True when home team wins. False otherwise.
     }
-
+  
     public void setActivity(int i) {
         activity = i;
     }
