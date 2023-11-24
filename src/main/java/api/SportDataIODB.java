@@ -27,7 +27,30 @@ public class SportDataIODB implements SportDB {
         updateVariables();
         OkHttpClient client = new OkHttpClient().newBuilder().build();
         Request request = new Request.Builder()
-                .url(String.format(API_URL + "/GameOddsByWeek/{%s}/{%s}?key=%s", season, week, API_TOKEN)).build();
+                .url(String.format(API_URL + "/GameOddsByWeek/%s/%s?key=%s", season, week, API_TOKEN)).build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            System.out.println(response);
+
+            if (response.code() == 200) {
+                return new JSONArray(response.body().string());
+            } else {
+                JSONObject responseBody = new JSONObject(response.body().string());
+                throw new RuntimeException(responseBody.getString("message"));
+            }
+        } catch (IOException | JSONException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public JSONArray getScores() {
+        updateVariables();
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        Request request = new Request.Builder()
+                .url(String.format("https://api.sportsdata.io/v3/nfl/scores/json/ScoresByWeek/%s/%s?key=%s",
+                        season, week, API_TOKEN)).build();
 
         try {
             Response response = client.newCall(request).execute();
@@ -47,16 +70,16 @@ public class SportDataIODB implements SportDB {
     public static String getSeason() {
         OkHttpClient client = new OkHttpClient().newBuilder().build();
         Request request = new Request.Builder()
-                .url(String.format(API_URL + "/CurrentSeason?key=%s", API_TOKEN)).build();
+                .url(String.format("https://api.sportsdata.io/v3/nfl/scores/json/CurrentSeason?key=%s", API_TOKEN)).build();
 
         try {
             Response response = client.newCall(request).execute();
             System.out.println(response);
-            JSONObject responseBody = new JSONObject(response.body().string());
 
             if (response.code() == 200) {
-                return responseBody.toString();
+                return response.body().string();
             } else {
+                JSONObject responseBody = new JSONObject(response.body().string());
                 throw new RuntimeException(responseBody.getString("message"));
             }
         } catch (IOException | JSONException e) {
@@ -66,16 +89,17 @@ public class SportDataIODB implements SportDB {
 
     public static String getWeek() {
         OkHttpClient client = new OkHttpClient().newBuilder().build();
-        Request request = new Request.Builder().url(String.format(API_URL + "/CurrentWeek?key=%s", API_TOKEN)).build();
+        Request request = new Request.Builder()
+                .url(String.format("https://api.sportsdata.io/v3/nfl/scores/json/CurrentWeek?key=%s", API_TOKEN)).build();
 
         try {
             Response response = client.newCall(request).execute();
             System.out.println(response);
-            JSONObject responseBody = new JSONObject(response.body().string());
 
             if (response.code() == 200) {
-                return responseBody.toString();
+                return response.body().string();
             } else {
+                JSONObject responseBody = new JSONObject(response.body().string());
                 throw new RuntimeException(responseBody.getString("message"));
             }
         } catch (IOException | JSONException e) {

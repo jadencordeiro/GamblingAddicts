@@ -7,14 +7,13 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.time.LocalDate;
 
-public class CloudbetSportDB implements SportDB {
+public class CloudbetSportDB {
 
     private static final String API_URL = "https://sports-api.cloudbet.com/pub";
     private static final String API_TOKEN = System.getenv("API_TOKEN");
 
     public static String getApiToken(){return API_TOKEN;}
 
-    @Override
     public JSONArray getEvents() {
         OkHttpClient client = new OkHttpClient().newBuilder().build();
         Request request = new Request.Builder()
@@ -34,7 +33,7 @@ public class CloudbetSportDB implements SportDB {
             } else {
                 throw new RuntimeException(responseBody.getString("message"));
             }
-        } catch (IOException | JSONException e){
+        } catch (IOException | JSONException e) {
             throw new RuntimeException(e);
         }
     }

@@ -9,7 +9,4 @@ public class RefreshInputData {
         this.date = LocalDateTime.now();
     }
 
-    public LocalDateTime getDate() {
-        return date;
-    }
 }

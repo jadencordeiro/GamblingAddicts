@@ -70,8 +70,8 @@ public class ScheduleDataAccessObject implements RefreshScheduleDataAccessInterf
             writer.newLine();
 
             for (Event event : events.values()) {
-                String line = String.format("%s,%s,%s,%s",
-                        event.getId(), event.getHome(), event.getAway(), event.getDate());
+                String line = String.format("%s,%s,%s,%s,%s",
+                        event.getId(), event.getHome(), event.getAway(), event.getDate(), event.getWeek());
                 writer.write(line);
                 writer.newLine();
             }
@@ -90,6 +90,7 @@ public class ScheduleDataAccessObject implements RefreshScheduleDataAccessInterf
     @Override
     public void delete(Event event) {
         events.remove(event.getTitle());
+        this.save();
     }
 
     @Override

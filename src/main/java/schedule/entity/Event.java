@@ -2,7 +2,7 @@ package schedule.entity;
 
 import java.time.LocalDateTime;
 
-public interface Event {
+public interface Event extends Comparable<Event> {
 
     int getId();
 
@@ -18,14 +18,19 @@ public interface Event {
 
     void setActivity(int i);
 
+    int getActivity();
     void setHomeScore(int homeScore);
+
+    int getHomeScore();
 
     void setAwayScore(int awayScore);
 
-    void setHomeOdds(int homeOdds);
+    int getAwayScore();
 
-    void setAwayOdds(int awayOdds);
+    void setHomeOdds(float homeOdds);
 
-    int getHomeOdds();
-    int getAwayOdds();
+    void setAwayOdds(float awayOdds);
+
+    float getHomeOdds();
+    float getAwayOdds();
 }
