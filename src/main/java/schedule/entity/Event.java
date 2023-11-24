@@ -33,4 +33,8 @@ public interface Event extends Comparable<Event> {
 
     float getHomeOdds();
     float getAwayOdds();
+
+    boolean getResult();
+
+  
 }

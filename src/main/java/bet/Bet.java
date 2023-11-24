@@ -2,39 +2,40 @@ package bet;
 
 import schedule.entity.Event;
 
+
 public class Bet {
-    private float odds;
 
+    // moved the "odds" part to Events, delete getOdds method
+    // Initializing betting event, betting side, and amount.
     private Event event;
-
-    private boolean result;
 
     private float wager;
 
-    public Bet(Event event, float wager){
+    private boolean betOnHome;
 
-        this.odds = 0.0F;
+    public Bet(Event event, float wager, boolean betOnHome){
 
         this.event = event;
 
-        this.result = false;
-
         this.wager = wager;
-    }
-    // Don't know how we are changing odds
-    public float getOdds(){
-        return this.odds;
+
+        this.betOnHome = true;
     }
 
     public Event getEvent(){
         return this.event;
     }
     // Need to change value depending on W/L but later on
-    public boolean getResult(){
-        return this.result;
-    }
-
     public float getWager(){
         return this.wager;
+    }
+    // True when betting on Home, False when betting on Away
+    public boolean getBettingSide() {return this.betOnHome;}
+
+    public double payout(){
+        if (event.getResult() == this.getBettingSide() == true){return this.getWager() * event.getHomeOdds();}
+        else if (event.getResult() == this.getBettingSide() == false){return this.getWager() * event.getAwayOdds();}
+        else return 0.0F;
+        // pay if bet placed on the winning team
     }
 }
