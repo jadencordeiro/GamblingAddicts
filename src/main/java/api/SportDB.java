@@ -6,4 +6,6 @@ import java.time.LocalDateTime;
 public interface SportDB {
 
     JSONArray getEvents();
+
+    JSONArray getScores();
 }
