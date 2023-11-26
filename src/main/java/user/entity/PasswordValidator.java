@@ -1,7 +1,7 @@
 package user.entity;
 
-public abstract class PasswordValidator {
 
-    public abstract boolean passwordIsValid(String password);
+public interface PasswordValidator {
+    public boolean passwordIsValid(String password);
 
 }

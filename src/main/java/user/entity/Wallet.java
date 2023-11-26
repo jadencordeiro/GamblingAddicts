@@ -1,5 +1,6 @@
 package user.entity;
 
+
 import bet.Bet;
 
 import java.util.ArrayList;

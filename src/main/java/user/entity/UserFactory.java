@@ -1,7 +1,11 @@
 package user.entity;
 
+
+import java.time.LocalDateTime;
+
 public class UserFactory {
-    public User create(String name, String password) {
-        return new User(name, password);
+    public User create(String name, String password, LocalDateTime ltd) {
+        return new User(name, password, ltd);
     }
 }
+

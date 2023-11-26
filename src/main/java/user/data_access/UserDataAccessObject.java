@@ -1,15 +1,11 @@
 package user.data_access;
 
-import bet.Bet;
+
 import user.entity.User;
 import user.entity.UserFactory;
-import user.interface_adapter.UserDataAccessInterface;
 
 import java.io.*;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -50,16 +46,18 @@ public class UserDataAccessObject extends UserDataAccessInterface {
                     String[] col = row.split(",");
                     String username = String.valueOf(col[headers.get("username")]);
                     String password = String.valueOf(col[headers.get("password")]);
-                    User user = userFactory.create(username, password);
+                    String creationTimeText = String.valueOf(col[headers.get("creation_time")]);
+                    LocalDateTime ldt = LocalDateTime.parse(creationTimeText);
+                    User user = userFactory.create(username, password, ldt);
                     accounts.put(username, user);
                 }
             }
         }
     }
-    @Override
-    public void place_bet(Bet bet){
-
-    }
+//    @Override
+//    public void place_bet(Bet bet){
+//
+//    }
 
     @Override
     public void save(User user) {
