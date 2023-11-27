@@ -40,7 +40,7 @@ public class Wallet {
 
     /**
      * @param bet Takes a Bet for input.
-     * @see java.bet.Bet
+     * @see: java.bet.Bet
      * @throws InsufficientFundsException throw Exception when the fund is not enough for the bet place.
      */
     public void addBet(Bet bet) throws InsufficientFundsException {
