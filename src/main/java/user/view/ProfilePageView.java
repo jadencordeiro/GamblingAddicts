@@ -9,7 +9,7 @@ public class ProfilePageView extends JFrame {
     private JTextField usernameField;
     private JTextField walletField;
     private JTextField balanceField;
-    private JTextField betHistoryField;
+    private JTextField betHistoryFiel;
     private JButton saveButton;
 
     public ProfilePageView() {
