@@ -1,6 +1,9 @@
 package schedule.entity;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.time.LocalDateTime;
+import java.util.Comparator;
 
 public class SportEvent implements Event {
     final private int id;
@@ -13,8 +16,8 @@ public class SportEvent implements Event {
     private int homeScore = 0;
     private int awayScore = 0;
 
-    private int homeOdds = 0;
-    private int awayOdds = 0;
+    private float homeOdds = 0;
+    private float awayOdds = 0;
 
 
     public SportEvent(int id, String home, String away, LocalDateTime date, String week){
@@ -83,19 +86,24 @@ public class SportEvent implements Event {
         this.awayScore = awayScore;
     }
 
-    public void setHomeOdds(int homeOdds) {
+    public void setHomeOdds(float homeOdds) {
         this.homeOdds = homeOdds;
     }
 
-    public void setAwayOdds(int awayOdds) {
+    public void setAwayOdds(float awayOdds) {
         this.awayOdds = awayOdds;
     }
 
-    public int getHomeOdds() {
+    public float getHomeOdds() {
         return homeOdds;
     }
 
-    public int getAwayOdds() {
+    public float getAwayOdds() {
         return awayOdds;
+    }
+
+    @Override
+    public int compareTo(@NotNull Event o) {
+        return this.date.compareTo(o.getDate());
     }
 }
