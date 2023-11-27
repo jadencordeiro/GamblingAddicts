@@ -1,4 +1,4 @@
-package bet;
+import bet.Bet;
 import org.junit.jupiter.api.Test;
 import schedule.entity.SportEvent;
 import java.time.LocalDateTime;

@@ -3,9 +3,9 @@ package bet;
 import schedule.entity.Event;
 
 /**
- * @param: event The event betting on.
- * @param: wager The amount of bet placed.
- * @param: betOnHome The betting side. True if betting on home.
+ * event: The event betting on.
+ * wager: The amount of bet placed.
+ * betOnHome: The betting side. True if betting on home.
  */
 public class Bet {
     private Event event;
@@ -37,9 +37,9 @@ public class Bet {
      * Payout if bet placed on the winning team.
      * @return The winning amount.
      */
-    public double payout(){
-        if (event.getResult() == this.getBettingSide() == true){return this.getWager() * event.getHomeOdds();}
-        else if (event.getResult() == this.getBettingSide() == false){return this.getWager() * event.getAwayOdds();}
+    public float payout(){
+        if (event.getResult() == this.getBettingSide()){return this.getWager() * event.getHomeOdds();}
+        else if (!(event.getResult() == this.getBettingSide())){return this.getWager() * event.getAwayOdds();}
         else return 0.0F;
     }
 }

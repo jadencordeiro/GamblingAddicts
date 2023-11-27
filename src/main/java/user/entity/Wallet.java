@@ -5,8 +5,8 @@ import bet.Bet;
 import java.util.ArrayList;
 
 /**
- * @param: balance The balance in the wallet.
- * @param: bets The list of bets inside this wallet.
+ * balance: The balance in the wallet.
+ * bets: The list of bets inside this wallet.
  */
 public class Wallet {
 
@@ -40,7 +40,7 @@ public class Wallet {
 
     /**
      * @param bet Takes a Bet for input.
-     * @see: java.bet.Bet
+     * @see bet.Bet for more information.
      * @throws InsufficientFundsException throw Exception when the fund is not enough for the bet place.
      */
     public void addBet(Bet bet) throws InsufficientFundsException {
@@ -51,7 +51,7 @@ public class Wallet {
         this.bets.add(bet);
     }
 
-    public class InsufficientFundsException extends Exception {
+    public static class InsufficientFundsException extends Exception {
         public InsufficientFundsException() {
             super("Insufficient funds in the account.");
         }
