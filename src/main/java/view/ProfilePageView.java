@@ -9,8 +9,10 @@ public class ProfilePageView extends JFrame {
     private JTextField usernameField;
     private JTextField walletField;
     private JTextField balanceField;
-    private JTextField betHistoryFiel;
+    private JTextField betHistoryField;
     private JButton saveButton;
+    private JButton cashOutButton; // Calls Settlement
+    private JButton
 
     public ProfilePageView() {
         setTitle("Profile Page");
@@ -51,6 +53,10 @@ public class ProfilePageView extends JFrame {
         String wallet = walletField.getText();
 
         JOptionPane.showMessageDialog(this, "Profile saved successfully!");
+    }
+
+    private void CashOutButton() {
+        // Calls method in wallet to update earnings and balance
     }
 
     public static void main(String[] args) {

@@ -1,9 +1,10 @@
-package user.entity;
+package wallet;
 
 
 import bet.Bet;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * balance: The balance in the wallet.
@@ -13,6 +14,8 @@ public class Wallet {
 
     private float balance;
 
+    private float earnings;
+    private HashMap payoutHistory;
     private ArrayList<Bet> bets;
 
     public Wallet() {
@@ -63,8 +66,9 @@ public class Wallet {
      * payout each individual bet inside the bets list in this wallet.
      */
     public void settlement() {
-        for (Bet bet : bets) {balance += bet.payout();}
+        for (Bet bet : bets) {balance += (float) bet.payout();}
     }
     // payout all bets in the Bet array.
+    // update balance and earnings
 }
 
