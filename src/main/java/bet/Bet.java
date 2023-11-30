@@ -2,11 +2,12 @@ package bet;
 
 import schedule.entity.Event;
 
-
+/**
+ * event: The event betting on.
+ * wager: The amount of bet placed.
+ * betOnHome: The betting side. True if betting on home.
+ */
 public class Bet {
-
-    // moved the "odds" part to Events, delete getOdds method
-    // Initializing betting event, betting side, and amount.
     private Event event;
 
     private float wager;
@@ -32,10 +33,13 @@ public class Bet {
     // True when betting on Home, False when betting on Away
     public boolean getBettingSide() {return this.betOnHome;}
 
-    public double payout(){
-        if (event.getResult() == this.getBettingSide() == true){return this.getWager() * event.getHomeOdds();}
-        else if (event.getResult() == this.getBettingSide() == false){return this.getWager() * event.getAwayOdds();}
+    /**
+     * Payout if bet placed on the winning team.
+     * @return The winning amount.
+     */
+    public float payout(){
+        if (event.getResult() == this.getBettingSide()){return this.getWager() * event.getHomeOdds();}
+        else if (!(event.getResult() == this.getBettingSide())){return this.getWager() * event.getAwayOdds();}
         else return 0.0F;
-        // pay if bet placed on the winning team
     }
 }

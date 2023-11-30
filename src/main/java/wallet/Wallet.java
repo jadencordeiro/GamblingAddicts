@@ -6,6 +6,10 @@ import bet.Bet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * balance: The balance in the wallet.
+ * bets: The list of bets inside this wallet.
+ */
 public class Wallet {
 
     private float balance;
@@ -38,7 +42,11 @@ public class Wallet {
     }
     // shall we add a precondition that addition >= 0 here, so we could omit the "if" part?
 
-    // Add bet is giving an error because bet isn't implemented yet
+    /**
+     * @param bet Takes a Bet for input.
+     * @see bet.Bet for more information.
+     * @throws InsufficientFundsException throw Exception when the fund is not enough for the bet place.
+     */
     public void addBet(Bet bet) throws InsufficientFundsException {
         if ((this.balance -= bet.getWager()) < 0) {
             throw new InsufficientFundsException();
@@ -47,12 +55,16 @@ public class Wallet {
         this.bets.add(bet);
     }
 
-    public class InsufficientFundsException extends Exception {
+    public static class InsufficientFundsException extends Exception {
         public InsufficientFundsException() {
             super("Insufficient funds in the account.");
         }
     }
 
+
+    /**
+     * payout each individual bet inside the bets list in this wallet.
+     */
     public void settlement() {
         for (Bet bet : bets) {balance += (float) bet.payout();}
     }
