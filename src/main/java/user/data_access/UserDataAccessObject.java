@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class UserDataAccessObject extends UserDataAccessInterface {
+public class UserDataAccessObject implements UserDataAccessInterface {
 
     private File csvFile;
 
@@ -54,9 +54,7 @@ public class UserDataAccessObject extends UserDataAccessInterface {
             }
         }
     }
-//    @Override
-//    public void place_bet(Bet bet){
-//
+
 //    }
 
     @Override

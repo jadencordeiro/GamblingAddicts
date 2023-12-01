@@ -6,7 +6,7 @@ import user.entity.User;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InFileDataAccessObject extends UserDataAccessInterface {
+public class InFileDataAccessObject implements UserDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
 
