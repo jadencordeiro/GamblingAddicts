@@ -1,6 +1,8 @@
 package user.entity;
 
 
+import wallet.entity.Wallet;
+
 import java.time.LocalDateTime;
 
 public class User {
@@ -18,7 +20,7 @@ public class User {
         this.name = name;
         this.password = password;
         this.creationTime = creationTime;
-        this.wallet = new Wallet();
+        this.wallet = new Wallet(name);
 
     }
 
