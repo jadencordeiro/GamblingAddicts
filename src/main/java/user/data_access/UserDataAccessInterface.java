@@ -3,10 +3,10 @@ package user.data_access;
 
 import user.entity.User;
 
-public abstract class UserDataAccessInterface {
+public interface UserDataAccessInterface {
 
-    public abstract boolean existsByName(String identifier);
-//    public abstract void place_bet(Bet bet);
+    boolean existsByName(String identifier);
 
-    public abstract void save(User user);
+
+    void save(User user);
 }

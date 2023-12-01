@@ -8,7 +8,7 @@ import user.use_case.SignupOutputData;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class SignupPresenter extends SignupOutputBoundary {
+public class SignupPresenter implements SignupOutputBoundary {
 
     private final SignupViewModel signupViewModel;
     private final LoginViewModel loginViewModel;
@@ -23,7 +23,7 @@ public class SignupPresenter extends SignupOutputBoundary {
     }
 
     @Override
-    protected void prepareSuccessView(SignupOutputData response) {
+    public void prepareSuccessView(SignupOutputData response) {
 
         LocalDateTime responseTime = LocalDateTime.parse(response.getCreationTime());
         response.setCreationTime(responseTime.format(DateTimeFormatter.ofPattern("hh:mm:ss")));
