@@ -3,72 +3,41 @@ package wallet.entity;
 
 import bet.Bet;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 
 /**
  * balance: The balance in the wallet.
- * bets: The list of bets inside this wallet.
+ * transactions: The list of user completed deposits/withdrawals
+ * bet history: the map linking bets to payouts/losses
+ * username: User associated with wallet
  */
 public class Wallet {
 
     private float balance;
+    final private String name;
+    private HashMap<Bet, Float> betHistory;
+    private HashMap<LocalDateTime, Float> transactionHistory;
 
-    private float earnings;
-    private HashMap payoutHistory;
-    private ArrayList<Bet> bets;
-
-    public Wallet() {
+    public Wallet(String name) {
 
         this.balance = 0.0F;
-
-        this.bets = new ArrayList<>();
+        this.name = name;
+        this.betHistory = new HashMap<>();
+        this.transactionHistory = new HashMap<>();
     }
 
     public float getBalance() {
         return this.balance;
     }
+    public void setBalance(float updatedBalance) {this.balance = updatedBalance;}
+    public String getWalletName(){return this.name;}
 
-    public ArrayList<Bet> getBets() {
-        return this.bets;
+    public HashMap<Bet, Float> getBets() {
+        return this.betHistory;
     }
 
-    public void addFunds(float addition) {
-        if (addition <= 0) {
-            return;
-        } else {
-            this.balance += addition;
-        }
+    public HashMap<LocalDateTime, Float> getTransactionHistory() {
+        return this.transactionHistory;
     }
-    // shall we add a precondition that addition >= 0 here, so we could omit the "if" part?
-
-    /**
-     * @param bet Takes a Bet for input.
-     * @see bet.Bet for more information.
-     * @throws InsufficientFundsException throw Exception when the fund is not enough for the bet place.
-     */
-    public void addBet(Bet bet) throws InsufficientFundsException {
-        if ((this.balance -= bet.getWager()) < 0) {
-            throw new InsufficientFundsException();
-        }
-        this.balance -= bet.getWager();
-        this.bets.add(bet);
-    }
-
-    public static class InsufficientFundsException extends Exception {
-        public InsufficientFundsException() {
-            super("Insufficient funds in the account.");
-        }
-    }
-
-
-    /**
-     * payout each individual bet inside the bets list in this wallet.
-     */
-    public void settlement() {
-        for (Bet bet : bets) {balance += (float) bet.payout();}
-    }
-    // payout all bets in the Bet array.
-    // update balance and earnings
 }
-
