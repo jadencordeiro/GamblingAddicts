@@ -1,7 +1,7 @@
 package wallet.entity;
 
 
-import bet.Bet;
+import bet.entity.Bet;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
