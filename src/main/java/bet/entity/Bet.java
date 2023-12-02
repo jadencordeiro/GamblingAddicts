@@ -1,4 +1,4 @@
-package bet;
+package bet.entity;
 
 import schedule.entity.Event;
 
@@ -14,11 +14,10 @@ public class Bet {
 
     private boolean betOnHome;
 
-    public Bet(Event event, float wager, boolean betOnHome){
-
+    public Bet(Event event){
         this.event = event;
 
-        this.wager = wager;
+        this.wager = 0.0F;
 
         this.betOnHome = true;
     }
@@ -30,8 +29,11 @@ public class Bet {
     public float getWager(){
         return this.wager;
     }
+
+    public void setWager(float updatedWager) {this.wager = updatedWager;}
     // True when betting on Home, False when betting on Away
     public boolean getBettingSide() {return this.betOnHome;}
+    public void setBettingSide(boolean Team) {this.betOnHome = Team;}
 
     /**
      * Payout if bet placed on the winning team.
