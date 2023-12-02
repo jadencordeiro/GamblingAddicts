@@ -1,4 +1,7 @@
 package wallet.entity;
 
-public interface WalletFactory {
+public class WalletFactory {
+    public Wallet create(String name){
+        return new Wallet(name);
+    }
 }
