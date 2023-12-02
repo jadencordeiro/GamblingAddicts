@@ -1,3 +1,5 @@
+package user.entity;
+
 import org.junit.jupiter.api.Test;
 import user.entity.User;
 import user.entity.Wallet;

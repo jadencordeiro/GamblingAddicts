@@ -62,7 +62,6 @@ public class ScheduleView extends JPanel implements ActionListener, PropertyChan
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        ScheduleState state = (ScheduleState) evt.getNewValue();
         setScheduleData(getScheduleData());
     }
 

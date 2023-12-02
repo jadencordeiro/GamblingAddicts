@@ -3,6 +3,7 @@ package user.data_access;
 
 import user.entity.User;
 import user.entity.UserFactory;
+import user.use_case.LoginUserDataAccessInterface;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -10,7 +11,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class UserDataAccessObject implements UserDataAccessInterface {
+public class UserDataAccessObject implements UserDataAccessInterface, LoginUserDataAccessInterface {
 
     private File csvFile;
 
@@ -63,6 +64,11 @@ public class UserDataAccessObject implements UserDataAccessInterface {
         this.save();
     }
 
+    @Override
+    public User get(String username) {
+        return accounts.get(username);
+    }
+
     private void save() {
         BufferedWriter writer;
         try {
@@ -71,8 +77,7 @@ public class UserDataAccessObject implements UserDataAccessInterface {
             writer.newLine();
 
             for (User user : accounts.values()) {
-                String line = "%s,%s".formatted(
-                        user.getName(), user.getPassword());
+                String line = String.format("%s,%s,%s", user.getName(), user.getPassword(), user.getCreationTime());
                 writer.write(line);
                 writer.newLine();
             }

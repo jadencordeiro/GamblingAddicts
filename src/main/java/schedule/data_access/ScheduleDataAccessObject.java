@@ -88,8 +88,8 @@ public class ScheduleDataAccessObject implements RefreshScheduleDataAccessInterf
     }
 
     @Override
-    public void delete(Event event) {
-        events.remove(event.getTitle());
+    public void delete() {
+        events.clear();
         this.save();
     }
 
