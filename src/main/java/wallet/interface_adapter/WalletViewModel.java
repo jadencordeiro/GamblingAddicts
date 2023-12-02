@@ -1,4 +1,4 @@
 package wallet.interface_adapter;
 
-public class UserTransViewModel {
+public class WalletViewModel {
 }
