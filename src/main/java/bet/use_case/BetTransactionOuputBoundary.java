@@ -1,4 +1,4 @@
-package wallet.use_case.bet_transactions;
+package bet.use_case;
 
 public interface BetTransactionOuputBoundary {
 }
