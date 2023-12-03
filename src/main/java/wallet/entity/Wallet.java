@@ -43,6 +43,7 @@ public class Wallet {
         //put method updates value based on key or creates a new entry for key, so no need to
         //check whether the bet already exists in the History
          this.betHistory.put(bet, amount);
+         // raise error when insufficient funds?
     }
     public void setTransactionHistory( LocalDateTime ldt, Float amount) {
         this.transactionHistory.put(ldt, amount);
