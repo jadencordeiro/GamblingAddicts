@@ -1,6 +1,6 @@
 package wallet.entity;
 
-import bet.Bet;
+import bet.entity.Bet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import schedule.entity.SportEvent;
