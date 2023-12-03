@@ -1,29 +1,26 @@
 package bet.entity;
-
-import schedule.entity.Event;
-
 /**
  * event: The event betting on.
  * wager: The amount of bet placed.
  * betOnHome: The betting side. True if betting on home.
  */
 public class Bet {
-    private Event event;
+    private String eventTitle;
 
     private float wager;
 
     private boolean betOnHome;
 
-    public Bet(Event event){
-        this.event = event;
+    public Bet(String eventTitle){
+        this.eventTitle = eventTitle;
 
         this.wager = 0.0F;
 
         this.betOnHome = true;
     }
 
-    public Event getEvent(){
-        return this.event;
+    public String getEventTitle(){
+        return this.eventTitle;
     }
     // Need to change value depending on W/L but later on
     public float getWager(){
@@ -43,5 +40,5 @@ public class Bet {
         if (event.getResult() == this.getBettingSide()){return this.getWager() * event.getHomeOdds();}
         else if (!(event.getResult() == this.getBettingSide())){return this.getWager() * event.getAwayOdds();}
         else return 0.0F;
-    }
+    }// needs to be modified
 }

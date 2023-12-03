@@ -1,21 +1,19 @@
 package bet.use_case;
 
-import schedule.entity.Event;
-
 public class BetTransactionOutputData {
-    final private Event event;
+    final private String eventTitle;
     final private float wager;
     final private boolean betOnHome;
 
     private boolean useCaseFailed;
 
-    public BetTransactionOutputData(Event event, float wager, boolean betOnHome, boolean useCaseFailed){
-        this.event = event;
+    public BetTransactionOutputData(String eventTitle, float wager, boolean betOnHome, boolean useCaseFailed){
+        this.eventTitle = eventTitle;
         this.wager = wager;
         this.betOnHome = betOnHome;
         this.useCaseFailed = useCaseFailed;
     }
-    public Event getEvent(){return event;}
+    public String getEventTitle(){return eventTitle;}
     public float getWager(){return wager;}
     boolean getBetOnHome() {return betOnHome;}
 }
