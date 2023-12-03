@@ -5,17 +5,17 @@ import schedule.entity.Event;
 public class BetTransactionInputData {
     final private float wager;
     final private boolean betOnHome;
-    final private Event event;
+    final private String eventTitle;
 
     final private String name; // username
-    public BetTransactionInputData(Event event, float wager, boolean betOnHome, String name){
-        this.event = event;
+    public BetTransactionInputData(String eventTitle, float wager, boolean betOnHome, String name){
+        this.eventTitle = eventTitle;
         this.wager = wager;
         this.betOnHome = betOnHome;
         this.name = name;
     }
 
-    Event getEvent(){return event;}
+    String getEventTitle(){return eventTitle;}
     float getWager(){return wager;}
 
     boolean getBetOnHome() {return betOnHome;}

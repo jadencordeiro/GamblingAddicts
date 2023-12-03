@@ -17,21 +17,20 @@ public class BetTransactionInteractor implements BetTransactionInputBoundary{
     }
     @Override
     public void execute(BetTransactionInputData betTransactionInputData) {
-        Event event = betTransactionInputData.getEvent();
+        String eventTitle = betTransactionInputData.getEventTitle();
         float wager = betTransactionInputData.getWager();
         boolean betOnHome = betTransactionInputData.getBetOnHome();
         String username = betTransactionInputData.getName();
-        Bet bet = betDAO.getBet(event);
+        Bet bet = betDAO.get(eventTitle);
         boolean betAlreadyPlaced = false;
         Wallet wallet = new Wallet(username);//Not sure how to call since user.getwallet() doesn't have name as input.
 
         for (Bet bet1 : wallet.getBets().keySet()) {
-            if (bet1.getEvent().equals(bet.getEvent())) {
+            if (bet1.getEventTitle().equals(bet.getEventTitle())) {
                 betAlreadyPlaced = true;
                 break;
             }
         }//True if event is already in the bets list.
-
 
         if (wager < 0.0){betTransactionPresenter.prepareFailView("Invalid bet");}
         else if (betAlreadyPlaced){betTransactionPresenter.prepareFailView("Bet already placed");}
@@ -41,7 +40,7 @@ public class BetTransactionInteractor implements BetTransactionInputBoundary{
             bet.setBettingSide(betOnHome);
             bet.setWager(wager);
             wallet.setBets(bet, wager);//Adding this bet to the bet list.
-            BetTransactionOutputData betTransactionOutputData = new BetTransactionOutputData(event, wager, betOnHome,
+            BetTransactionOutputData betTransactionOutputData = new BetTransactionOutputData(eventTitle, wager, betOnHome,
                     false);
             betTransactionPresenter.prepareSuccessView(betTransactionOutputData);}
         //When should we call the payout method?
