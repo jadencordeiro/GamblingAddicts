@@ -4,7 +4,7 @@ public class PlaceBetState {
     private boolean betOnHomeEnabled;
     private boolean betOnAwayEnabled;
     private double betAmount;
-    private String errorMessage;
+    private String errorMessage = "";
 
     public PlaceBetState() {
         // Set default state

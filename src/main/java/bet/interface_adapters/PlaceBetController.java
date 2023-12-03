@@ -2,7 +2,6 @@ package bet.interface_adapters;
 
 import bet.use_case.BetTransactionInputBoundary;
 import bet.use_case.BetTransactionInputData;
-import user.use_case.LoginInputData;
 
 public class PlaceBetController {
 

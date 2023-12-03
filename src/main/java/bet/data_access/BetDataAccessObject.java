@@ -3,11 +3,8 @@ package bet.data_access;
 import bet.entity.BetFactory;
 import bet.entity.Bet;
 import bet.use_case.BetTransactionDataAccessInterface;
-import schedule.entity.Event;
-import user.entity.User;
 
 import java.io.*;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;

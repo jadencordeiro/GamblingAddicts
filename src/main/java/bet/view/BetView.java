@@ -2,7 +2,6 @@ package bet.view;
 
 import bet.interface_adapters.PlaceBetViewModel;
 import navigation.interface_adapter.NavigationController;
-import user.interface_adapter.LoggedInViewModel;
 
 import javax.swing.*;
 import java.awt.*;

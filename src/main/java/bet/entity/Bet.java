@@ -1,7 +1,4 @@
 package bet.entity;
-
-import schedule.entity.Event;
-
 /**
  * event: The event betting on.
  * wager: The amount of bet placed.

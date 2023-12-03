@@ -1,10 +1,7 @@
 package bet.use_case;
 
 import bet.entity.Bet;
-import schedule.entity.Event;
 import wallet.entity.Wallet;
-import wallet.use_case.user_transactions.UserTransactionOutputData;
-import user.entity.User;
 
 public class BetTransactionInteractor implements BetTransactionInputBoundary{
     final BetTransactionDataAccessInterface betDAO;
@@ -20,7 +17,6 @@ public class BetTransactionInteractor implements BetTransactionInputBoundary{
         String eventTitle = betTransactionInputData.getEventTitle();
         float wager = betTransactionInputData.getWager();
         boolean betOnHome = betTransactionInputData.getBetOnHome();
-        String username = betTransactionInputData.getName();
         Bet bet = betDAO.get(eventTitle);
         boolean betAlreadyPlaced = false;
         Wallet wallet = new Wallet(username);//Not sure how to call since user.getwallet() doesn't have name as input.

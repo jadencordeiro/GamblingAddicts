@@ -1,7 +1,5 @@
 package bet.use_case;
 
-import schedule.entity.Event;
-
 public class BetTransactionOutputData {
     final private String eventTitle;
     final private float wager;
