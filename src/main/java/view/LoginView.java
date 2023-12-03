@@ -1,4 +1,4 @@
-package user.view;
+package view;
 
 
 import user.interface_adapter.LoginState;

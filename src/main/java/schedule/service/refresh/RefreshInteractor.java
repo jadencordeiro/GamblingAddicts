@@ -28,11 +28,13 @@ public class RefreshInteractor implements RefreshInputBoundary{
         Map<String, Event> schedule = scheduleDataAccessObject.getEvents();
         // delete old games
         String week = SportDataIODB.getWeek();
-        for (Event event : schedule.values()) {
-            if(!event.getWeek().equals(week)) {
-                scheduleDataAccessObject.delete(event);
+        if(!schedule.keySet().isEmpty()){
+            Event scheduledEvent = schedule.get(schedule.keySet().iterator().next());
+            if(!scheduledEvent.getWeek().equals(week)) {
+                scheduleDataAccessObject.delete();
             }
         }
+
         // load new games
         JSONArray apiEvents = sportDB.getEvents();
         ArrayList<Event> events = UnpackJSONArray(apiEvents);

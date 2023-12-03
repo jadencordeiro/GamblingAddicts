@@ -1,8 +1,10 @@
 package view;
 
+import navigation.interface_adapter.NavigationController;
 import schedule.service.refresh.interface_adapter.RefreshController;
 import schedule.service.refresh.interface_adapter.ScheduleState;
 import schedule.service.refresh.interface_adapter.ScheduleViewModel;
+import user.interface_adapter.LoggedInViewModel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -16,12 +18,15 @@ public class ScheduleView extends JPanel implements ActionListener, PropertyChan
     public final String viewName = "schedule";
     private final ScheduleViewModel scheduleViewModel;
     private final RefreshController refreshController;
+    private final NavigationController navigationController;
     private final JButton refresh;
+    private final JButton home;
     private JTable scheduleTable;
 
-    public ScheduleView(ScheduleViewModel scheduleViewModel, RefreshController refreshController) {
+    public ScheduleView(ScheduleViewModel scheduleViewModel, RefreshController refreshController, NavigationController navigationController) {
         this.scheduleViewModel = scheduleViewModel;
         this.refreshController = refreshController;
+        this.navigationController = navigationController;
 
         scheduleViewModel.addPropertyChangeListener(this);
 
@@ -31,6 +36,8 @@ public class ScheduleView extends JPanel implements ActionListener, PropertyChan
         JPanel buttons = new JPanel();
         refresh = new JButton(ScheduleViewModel.REFRESH_BUTTON_LABEL);
         buttons.add(refresh);
+        home = new JButton(ScheduleViewModel.HOME_BUTTON_LABEL);
+        buttons.add(home);
 
         scheduleTable = new JTable();
         JScrollPane scrollPane = new JScrollPane(scheduleTable);
@@ -43,6 +50,17 @@ public class ScheduleView extends JPanel implements ActionListener, PropertyChan
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(refresh)){
                             refreshController.execute();
+                        }
+                    }
+                }
+        );
+
+        home.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(home)){
+                            navigationController.execute("logged in");
                         }
                     }
                 }
@@ -62,7 +80,6 @@ public class ScheduleView extends JPanel implements ActionListener, PropertyChan
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        ScheduleState state = (ScheduleState) evt.getNewValue();
         setScheduleData(getScheduleData());
     }
 
