@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ScheduleDataAccessObject implements RefreshScheduleDataAccessInterface {
+public class FileScheduleDataAccessObject implements RefreshScheduleDataAccessInterface {
 
     private final File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -19,7 +19,7 @@ public class ScheduleDataAccessObject implements RefreshScheduleDataAccessInterf
 
     private EventFactory eventFactory;
 
-    public ScheduleDataAccessObject(String csvPath, EventFactory eventFactory) throws IOException {
+    public FileScheduleDataAccessObject(String csvPath, EventFactory eventFactory) throws IOException {
         this.eventFactory = eventFactory;
 
         csvFile = new File(csvPath);

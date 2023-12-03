@@ -2,6 +2,7 @@ package app;
 
 import api.SportDataIODB;
 import interface_adapter.ViewManagerModel;
+import navigation.interface_adapter.NavigationController;
 import schedule.entity.EventFactory;
 import schedule.entity.SportEventFactory;
 import schedule.service.refresh.RefreshInputBoundary;
@@ -17,10 +18,10 @@ public class ScheduleUseCaseFactory {
 
     ScheduleUseCaseFactory() {}
 
-    public static ScheduleView create(ViewManagerModel viewManagerModel, ScheduleViewModel scheduleViewModel, RefreshScheduleDataAccessInterface scheduleDataAccessObject) {
+    public static ScheduleView create(ViewManagerModel viewManagerModel, ScheduleViewModel scheduleViewModel, RefreshScheduleDataAccessInterface scheduleDataAccessObject, NavigationController navigationController) {
 
         RefreshController refreshController = createScheduleUseCase(viewManagerModel, scheduleViewModel, scheduleDataAccessObject);
-        return new ScheduleView(scheduleViewModel, refreshController);
+        return new ScheduleView(scheduleViewModel, refreshController, navigationController);
     }
 
     private static RefreshController createScheduleUseCase(ViewManagerModel viewManagerModel, ScheduleViewModel scheduleViewModel, RefreshScheduleDataAccessInterface scheduleDataAccessObject) {

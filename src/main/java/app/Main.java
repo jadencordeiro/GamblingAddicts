@@ -1,7 +1,8 @@
 package app;
 
 import interface_adapter.ViewManagerModel;
-import schedule.data_access.ScheduleDataAccessObject;
+import navigation.interface_adapter.NavigationController;
+import schedule.data_access.FileScheduleDataAccessObject;
 import schedule.entity.SportEventFactory;
 import schedule.service.refresh.interface_adapter.ScheduleViewModel;
 import user.data_access.UserDataAccessObject;
@@ -41,13 +42,15 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        ScheduleDataAccessObject scheduleDataAccessObject;
+        FileScheduleDataAccessObject fileScheduleDataAccessObject;
         try {
-            scheduleDataAccessObject = new ScheduleDataAccessObject("./events.csv", new SportEventFactory());
+            fileScheduleDataAccessObject = new FileScheduleDataAccessObject("./events.csv", new SportEventFactory());
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        NavigationController navigationController = NavigationUseCaseFactory.createController(viewManagerModel);
 
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
         views.add(signupView, signupView.viewName);
@@ -58,10 +61,10 @@ public class Main {
         LoggedInView loggedInView = LoggedInUseCaseFactory.create(viewManagerModel, loggedInViewModel);
         views.add(loggedInView, loggedInView.viewName);
 
-        ScheduleView scheduleView = ScheduleUseCaseFactory.create(viewManagerModel, scheduleViewModel, scheduleDataAccessObject);
+        ScheduleView scheduleView = ScheduleUseCaseFactory.create(viewManagerModel, scheduleViewModel, fileScheduleDataAccessObject, navigationController);
         views.add(scheduleView, scheduleView.viewName);
 
-        viewManagerModel.setActiveView(signupView.viewName);
+        viewManagerModel.setActiveView(scheduleView.viewName);
         viewManagerModel.firePropertyChanged();
 
         application.pack();

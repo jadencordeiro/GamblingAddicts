@@ -45,6 +45,11 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
                     }
                 }
         );
+
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        this.add(title);
+        this.add(buttons);
     }
 
     @Override
