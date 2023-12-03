@@ -52,10 +52,13 @@ public class Main {
 
         NavigationController navigationController = NavigationUseCaseFactory.createController(viewManagerModel);
 
-        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
+        GamblingStartupView startupView = new GamblingStartupView(navigationController);
+        views.add(startupView, startupView.viewName);
+
+        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, navigationController);
         views.add(signupView, signupView.viewName);
 
-        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject);
+        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject, navigationController);
         views.add(loginView, loginView.viewName);
 
         LoggedInView loggedInView = LoggedInUseCaseFactory.create(viewManagerModel, loggedInViewModel);
@@ -64,7 +67,7 @@ public class Main {
         ScheduleView scheduleView = ScheduleUseCaseFactory.create(viewManagerModel, scheduleViewModel, fileScheduleDataAccessObject, navigationController);
         views.add(scheduleView, scheduleView.viewName);
 
-        viewManagerModel.setActiveView(scheduleView.viewName);
+        viewManagerModel.setActiveView(startupView.viewName);
         viewManagerModel.firePropertyChanged();
 
         application.pack();

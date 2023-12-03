@@ -1,6 +1,7 @@
 package view;
 
 
+import navigation.interface_adapter.NavigationController;
 import user.interface_adapter.SignupController;
 import user.interface_adapter.SignupState;
 import user.interface_adapter.SignupViewModel;
@@ -22,14 +23,15 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final JPasswordField passwordInputField = new JPasswordField(15);
     private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
     private final SignupController signupController;
-
+    private final NavigationController navigationController;
     private final JButton signUp;
     private final JButton cancel;
 
-    public SignupView(SignupController controller, SignupViewModel signupViewModel) {
+    public SignupView(SignupController controller, SignupViewModel signupViewModel, NavigationController navigationController) {
 
         this.signupController = controller;
         this.signupViewModel = signupViewModel;
+        this.navigationController = navigationController;
         signupViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(signupViewModel.TITLE_LABEL);
@@ -60,7 +62,17 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                     }
                 }
         );
-        cancel.addActionListener(this);
+        cancel.addActionListener(
+
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(cancel)) {
+                            navigationController.execute("start up");
+                        }
+                    }
+                }
+        );
 
 
         usernameInputField.addKeyListener(
