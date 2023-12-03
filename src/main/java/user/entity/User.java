@@ -5,6 +5,12 @@ import wallet.entity.Wallet;
 
 import java.time.LocalDateTime;
 
+/**
+ * name: username
+ * password: password
+ * creationTime: time when created the account
+ * wallet: see Wallet.java
+ */
 public class User {
 
     final private String name;

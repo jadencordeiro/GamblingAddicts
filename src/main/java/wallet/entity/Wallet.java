@@ -1,7 +1,7 @@
 package wallet.entity;
 
 
-import bet.Bet;
+import bet.entity.Bet;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -36,8 +36,17 @@ public class Wallet {
     public HashMap<Bet, Float> getBets() {
         return this.betHistory;
     }
-
     public HashMap<LocalDateTime, Float> getTransactionHistory() {
         return this.transactionHistory;
     }
+    public void  setBets(Bet bet, Float amount) {
+        //put method updates value based on key or creates a new entry for key, so no need to
+        //check whether the bet already exists in the History
+         this.betHistory.put(bet, amount);
+         // raise error when insufficient funds?
+    }
+    public void setTransactionHistory( LocalDateTime ldt, Float amount) {
+        this.transactionHistory.put(ldt, amount);
+    }
+
 }

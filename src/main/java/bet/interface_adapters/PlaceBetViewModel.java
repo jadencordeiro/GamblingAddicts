@@ -1,4 +1,4 @@
-package wallet.interface_adapter;
+package bet.interface_adapters;
 
 public class PlaceBetViewModel {
 }
