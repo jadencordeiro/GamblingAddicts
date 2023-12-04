@@ -1,10 +1,10 @@
 package view;
 
+import bet.interface_adapters.PlaceBetController;
 import navigation.interface_adapter.NavigationController;
 import schedule.service.refresh.interface_adapter.RefreshController;
 import schedule.service.refresh.interface_adapter.ScheduleState;
 import schedule.service.refresh.interface_adapter.ScheduleViewModel;
-import user.interface_adapter.LoggedInViewModel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -19,14 +19,17 @@ public class ScheduleView extends JPanel implements ActionListener, PropertyChan
     private final ScheduleViewModel scheduleViewModel;
     private final RefreshController refreshController;
     private final NavigationController navigationController;
+    private final PlaceBetController placeBetController;
     private final JButton refresh;
     private final JButton home;
+    private final JButton bet;
     private JTable scheduleTable;
 
-    public ScheduleView(ScheduleViewModel scheduleViewModel, RefreshController refreshController, NavigationController navigationController) {
+    public ScheduleView(ScheduleViewModel scheduleViewModel, RefreshController refreshController, NavigationController navigationController, PlaceBetController placeBetController) {
         this.scheduleViewModel = scheduleViewModel;
         this.refreshController = refreshController;
         this.navigationController = navigationController;
+        this.placeBetController = placeBetController;
 
         scheduleViewModel.addPropertyChangeListener(this);
 
@@ -38,6 +41,8 @@ public class ScheduleView extends JPanel implements ActionListener, PropertyChan
         buttons.add(refresh);
         home = new JButton(ScheduleViewModel.HOME_BUTTON_LABEL);
         buttons.add(home);
+        bet = new JButton(ScheduleViewModel.BET_BUTTON_LABEL);
+        buttons.add(bet);
 
         scheduleTable = new JTable();
         JScrollPane scrollPane = new JScrollPane(scheduleTable);
@@ -61,6 +66,24 @@ public class ScheduleView extends JPanel implements ActionListener, PropertyChan
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(home)){
                             navigationController.execute("logged in");
+                        }
+                    }
+                }
+        );
+
+        bet.addActionListener(
+
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(home)) {
+                            String[][] currentData = getScheduleData();
+                            int length = currentData.length;
+                            int eventChoice = Integer.parseInt(JOptionPane.showInputDialog("Which game would you like to bet on."));
+                            float wagerChoice = Float.parseFloat(JOptionPane.showInputDialog("How much would you like to wager?"));
+                            boolean winnerChoice = JOptionPane.showInputDialog("Which team would you like to bet on?").equals("home");
+                            String title = currentData[eventChoice - 1][0] + " vs " + currentData[eventChoice - 1][3];
+                            placeBetController.execute(title, wagerChoice, winnerChoice);
                         }
                     }
                 }
