@@ -24,6 +24,7 @@ public class BetDataAccessObject implements BetDataAccessInterface, BetTransacti
         headers.put("Event", 0);
         headers.put("Wager", 1);
         headers.put("BetOnHome", 2);
+        headers.put("Username", 3);
 
         if (csvFile.length() == 0) {
             save();
@@ -33,7 +34,7 @@ public class BetDataAccessObject implements BetDataAccessInterface, BetTransacti
                 String header = reader.readLine();
 
 
-                assert header.equals("Event,Wager,BetOnHome");
+                assert header.equals("Event,Wager,BetOnHome, Username");
 
                 String row;
                 while ((row = reader.readLine()) != null) {
@@ -41,10 +42,11 @@ public class BetDataAccessObject implements BetDataAccessInterface, BetTransacti
                     String eventTitle = String.valueOf(col[headers.get("Event")]);
                     Float wager = Float.valueOf(col[headers.get("Wager")]);
                     Boolean betOnHome = Boolean.valueOf(col[headers.get("BetOnHome")]);
-                    Bet bet = betFactory.create(eventTitle);
+                    String username = String.valueOf(col[headers.get("Username")]);
+                    Bet bet = betFactory.create(eventTitle, username);
                     bet.setWager(wager);
                     bet.setBettingSide(betOnHome);
-                    bets.put(eventTitle, bet);
+                    bets.put(username, bet);
                 }
             }
         }

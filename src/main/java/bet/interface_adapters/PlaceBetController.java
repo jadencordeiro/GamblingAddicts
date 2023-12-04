@@ -10,9 +10,9 @@ public class PlaceBetController {
         this.betUseCaseInteractor = betUseCaseInteractor;
     }
 
-    public void execute(String eventTitle, float wager, boolean betOnHome) {
+    public void execute(String eventTitle, float wager, boolean betOnHome, String username) {
         BetTransactionInputData betTransactionInputData = new BetTransactionInputData(
-                eventTitle, wager, betOnHome);
+                eventTitle, wager, betOnHome, username);
 
         betUseCaseInteractor.execute(betTransactionInputData);
     }
