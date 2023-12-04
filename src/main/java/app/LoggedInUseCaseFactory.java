@@ -13,17 +13,9 @@ public class LoggedInUseCaseFactory {
 
     LoggedInUseCaseFactory() {}
 
-    public static LoggedInView create(ViewManagerModel viewManagerModel, LoggedInViewModel loggedInViewModel) {
-        NavigationController navigationController = createNavigationUseCase(viewManagerModel, loggedInViewModel);
+    public static LoggedInView create(ViewManagerModel viewManagerModel, LoggedInViewModel loggedInViewModel, NavigationController navigationController) {
         return new LoggedInView(loggedInViewModel, navigationController);
     }
 
-    private static NavigationController createNavigationUseCase(ViewManagerModel viewManagerModel, LoggedInViewModel loggedInViewModel) {
-        NavigationOutputBoundary navigationOutputBoundary = new NavigationPresenter(viewManagerModel);
-
-        NavigationInputBoundary navigationInteractor = new NavigationInteractor(navigationOutputBoundary);
-
-        return new NavigationController(navigationInteractor);
-    }
 
 }

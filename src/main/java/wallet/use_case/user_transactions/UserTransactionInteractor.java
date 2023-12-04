@@ -24,17 +24,24 @@ public class UserTransactionInteractor implements UserTransactionInputBoundary {
         Wallet wallet = userDataAccessObject.getWallet(name);
 
 
-        if ((amount < 0.0) || (amount > wallet.getBalance())) {
+        if (amount < 0.0) {
             userTransactionPresenter.prepareFailView(amount + " is not a valid amount.");
         } else {
             if (isDeposit) {
                 wallet.setBalance(wallet.getBalance() + amount);
                 wallet.setTransactionHistory(ldt, amount);
             } else {
-                wallet.setBalance(wallet.getBalance() - amount);
-                wallet.setTransactionHistory(ldt, (-1.0F * amount));
+                if(amount > wallet.getBalance()){
+                    userTransactionPresenter.prepareFailView(amount + " is not a valid amount.");
+                } else{
+                    wallet.setBalance(wallet.getBalance() - amount);
+                    wallet.setTransactionHistory(ldt, (-1.0F * amount));
+                }
             }
-            UserTransactionOutputData userTransactionOutputData = new UserTransactionOutputData(name, amount, ldt,
+
+
+            userDataAccessObject.save();
+            UserTransactionOutputData userTransactionOutputData = new UserTransactionOutputData(name, amount, wallet.getBalance(), ldt,
                     false);
             userTransactionPresenter.prepareSuccessView(userTransactionOutputData);
         }

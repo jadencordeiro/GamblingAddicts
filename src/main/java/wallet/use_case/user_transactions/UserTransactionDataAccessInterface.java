@@ -3,5 +3,9 @@ import user.entity.User;
 import wallet.entity.Wallet;
 
 public interface UserTransactionDataAccessInterface {
-    public Wallet getWallet(String name);
+    Wallet getWallet(String name);
+
+    void save(User user);
+
+    void save();
 }

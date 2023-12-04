@@ -63,6 +63,13 @@ public class RefreshInteractor implements RefreshInputBoundary{
                 game2.setHomeScore(eventScores.getInt("HomeScore"));
                 game2.setAwayScore(eventScores.getInt("AwayScore"));
             }
+            if (status == 1) {
+                if (game2.getHomeScore() > game2.getAwayScore()){
+                    game2.setResult(game2.getHome());
+                } else {
+                    game2.setResult(game2.getAway());
+                }
+            }
         }
 
         RefreshOutputData refreshOutputData = outputDataBuilder(scheduleDataAccessObject.getEvents());

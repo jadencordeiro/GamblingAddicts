@@ -12,6 +12,7 @@ import user.use_case.SignupInputBoundary;
 import user.use_case.SignupInteractor;
 import user.use_case.SignupOutputBoundary;
 import view.SignupView;
+import wallet.data_access.WalletDataAccessObject;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -21,10 +22,10 @@ public class SignupUseCaseFactory {
     private SignupUseCaseFactory() {}
 
     public static SignupView create(
-            ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SignupViewModel signupViewModel, UserDataAccessInterface userDataAccessObject, NavigationController navigationController) {
+            ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SignupViewModel signupViewModel, UserDataAccessInterface userDataAccessObject, NavigationController navigationController, WalletDataAccessObject walletDataAccessObject) {
 
         try {
-            SignupController signupController = createUserSignupUseCase(viewManagerModel, signupViewModel, loginViewModel, userDataAccessObject);
+            SignupController signupController = createUserSignupUseCase(viewManagerModel, signupViewModel, loginViewModel, userDataAccessObject, walletDataAccessObject);
             return new SignupView(signupController, signupViewModel, navigationController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
@@ -34,7 +35,7 @@ public class SignupUseCaseFactory {
     }
 
 
-    private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel, UserDataAccessInterface userDataAccessObject) throws IOException {
+    private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel, UserDataAccessInterface userDataAccessObject, WalletDataAccessObject walletDataAccessObject) throws IOException {
 
         // Notice how we pass this method's parameters to the Presenter.
         SignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel, signupViewModel, loginViewModel);
@@ -42,7 +43,7 @@ public class SignupUseCaseFactory {
         UserFactory userFactory = new UserFactory();
 
         SignupInputBoundary userSignupInteractor = new SignupInteractor(
-                userDataAccessObject, signupOutputBoundary, userFactory);
+                userDataAccessObject, walletDataAccessObject, signupOutputBoundary, userFactory);
 
         return new SignupController(userSignupInteractor);
     }

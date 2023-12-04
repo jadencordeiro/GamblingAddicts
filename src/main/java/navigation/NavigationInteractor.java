@@ -10,7 +10,7 @@ public class NavigationInteractor implements NavigationInputBoundary{
 
     @Override
     public void execute(NavigationInputData navigationInputData) {
-        NavigationOutputData outputData = new NavigationOutputData(navigationInputData.getName());
+        NavigationOutputData outputData = new NavigationOutputData(navigationInputData.getName(), navigationInputData.getUser());
         navigationPresenter.prepareSuccessView(outputData);
     }
 }

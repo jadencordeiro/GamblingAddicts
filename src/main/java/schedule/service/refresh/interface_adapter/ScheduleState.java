@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ScheduleState {
+    private String user;
 
     private ArrayList<Map<String, Object>> events = new ArrayList<>();
 
@@ -36,5 +37,13 @@ public class ScheduleState {
             i++;
         }
         return array;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user){
+        this.user = user;
     }
 }

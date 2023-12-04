@@ -68,7 +68,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(cancel)) {
-                            navigationController.execute("start up");
+                            navigationController.execute("start up", "");
                         }
                     }
                 }

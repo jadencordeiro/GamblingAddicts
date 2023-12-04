@@ -4,6 +4,10 @@ package user.data_access;
 import user.entity.User;
 import user.entity.UserFactory;
 import user.use_case.LoginUserDataAccessInterface;
+import wallet.data_access.WalletDataAccessObject;
+import wallet.entity.Wallet;
+import wallet.use_case.WalletUpdaterInterface;
+import wallet.use_case.user_transactions.UserTransactionDataAccessInterface;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -20,12 +24,15 @@ public class UserDataAccessObject implements UserDataAccessInterface, LoginUserD
     private final Map<String, User> accounts = new HashMap<>();
 
     private UserFactory userFactory;
+    private UserTransactionDataAccessInterface walletDataAccessObject;
+
 
     public UserDataAccessObject() {
     }
 
-    public void FileUserDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
+    public void FileUserDataAccessObject(String csvPath, UserFactory userFactory, UserTransactionDataAccessInterface walletDataAccessObject) throws IOException {
         this.userFactory = userFactory;
+        this.walletDataAccessObject = walletDataAccessObject;
 
         csvFile = new File(csvPath);
         headers.put("username", 0);
@@ -51,6 +58,8 @@ public class UserDataAccessObject implements UserDataAccessInterface, LoginUserD
                     LocalDateTime ldt = LocalDateTime.parse(creationTimeText);
                     User user = userFactory.create(username, password, ldt);
                     accounts.put(username, user);
+                    Wallet wallet = walletDataAccessObject.getWallet(username);
+                    user.setWallet(wallet);
                 }
             }
         }

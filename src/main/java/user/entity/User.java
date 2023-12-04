@@ -44,4 +44,7 @@ public class User {
 
     public Wallet getWallet() { return this.wallet; }
 
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
+    }
 }

@@ -36,5 +36,9 @@ public interface Event extends Comparable<Event> {
 
     boolean getResult();
 
+    void setResult(String winner);
+
+
+
   
 }

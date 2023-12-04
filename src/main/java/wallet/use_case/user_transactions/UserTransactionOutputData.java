@@ -9,9 +9,10 @@ public class UserTransactionOutputData {
     private LocalDateTime ldt;
     private boolean useCaseFailed;
 
-    public UserTransactionOutputData(String name, float amount, LocalDateTime ldt, boolean useCaseFailed) {
+    public UserTransactionOutputData(String name, float amount, float newBalance, LocalDateTime ldt, boolean useCaseFailed) {
         this.name = name;
         this.amount = amount;
+        this.newBalance = newBalance;
         this.ldt = ldt;
         this.useCaseFailed = useCaseFailed;
     }

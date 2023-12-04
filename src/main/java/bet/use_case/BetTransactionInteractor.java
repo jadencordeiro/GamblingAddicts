@@ -1,25 +1,32 @@
 package bet.use_case;
 
 import bet.entity.Bet;
+import schedule.service.refresh.RefreshScheduleDataAccessInterface;
+import user.data_access.UserDataAccessInterface;
 import wallet.entity.Wallet;
 
 public class BetTransactionInteractor implements BetTransactionInputBoundary{
     final BetTransactionDataAccessInterface betDAO;
     final BetTransactionOutputBoundary betTransactionPresenter;
 
+    final UserDataAccessInterface userDAO;
+    final RefreshScheduleDataAccessInterface scheduleDAO;
+
     public BetTransactionInteractor(BetTransactionDataAccessInterface betTransactionDataAccessInterface,
-                                    BetTransactionOutputBoundary betTransactionOutputBoundary){
+                                    BetTransactionOutputBoundary betTransactionOutputBoundary, UserDataAccessInterface userDAO, RefreshScheduleDataAccessInterface scheduleDAO){
         this.betDAO = betTransactionDataAccessInterface;
         this.betTransactionPresenter = betTransactionOutputBoundary;
+        this.userDAO = userDAO;
+        this.scheduleDAO = scheduleDAO;
     }
     @Override
     public void execute(BetTransactionInputData betTransactionInputData) {
         String eventTitle = betTransactionInputData.getEventTitle();
         float wager = betTransactionInputData.getWager();
         boolean betOnHome = betTransactionInputData.getBetOnHome();
-        Bet bet = betDAO.get(eventTitle);
+        Bet bet = betDAO.get("username", eventTitle);
         boolean betAlreadyPlaced = false;
-        Wallet wallet = new Wallet(username);//Not sure how to call since user.getwallet() doesn't have name as input.
+        Wallet wallet = new Wallet("username");//Not sure how to call since user.getwallet() doesn't have name as input.
 
         for (Bet bet1 : wallet.getBets().keySet()) {
             if (bet1.getEventTitle().equals(bet.getEventTitle())) {

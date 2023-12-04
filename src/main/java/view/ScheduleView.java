@@ -5,6 +5,7 @@ import navigation.interface_adapter.NavigationController;
 import schedule.service.refresh.interface_adapter.RefreshController;
 import schedule.service.refresh.interface_adapter.ScheduleState;
 import schedule.service.refresh.interface_adapter.ScheduleViewModel;
+import user.interface_adapter.LoggedInState;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -24,6 +25,8 @@ public class ScheduleView extends JPanel implements ActionListener, PropertyChan
     private final JButton home;
     private final JButton bet;
     private JTable scheduleTable;
+
+    private String user;
 
     public ScheduleView(ScheduleViewModel scheduleViewModel, RefreshController refreshController, NavigationController navigationController, PlaceBetController placeBetController) {
         this.scheduleViewModel = scheduleViewModel;
@@ -65,7 +68,7 @@ public class ScheduleView extends JPanel implements ActionListener, PropertyChan
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(home)){
-                            navigationController.execute("logged in");
+                            navigationController.execute("logged in", user);
                         }
                     }
                 }
@@ -76,12 +79,13 @@ public class ScheduleView extends JPanel implements ActionListener, PropertyChan
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        if (e.getSource().equals(home)) {
+                        if (e.getSource().equals(bet)) {
+                            refreshController.execute();
                             String[][] currentData = getScheduleData();
                             int length = currentData.length;
                             int eventChoice = Integer.parseInt(JOptionPane.showInputDialog("Which game would you like to bet on."));
                             float wagerChoice = Float.parseFloat(JOptionPane.showInputDialog("How much would you like to wager?"));
-                            boolean winnerChoice = JOptionPane.showInputDialog("Which team would you like to bet on?").equals("home");
+                            boolean winnerChoice = JOptionPane.showInputDialog("home or away").equalsIgnoreCase("home");
                             String title = currentData[eventChoice - 1][0] + " vs " + currentData[eventChoice - 1][3];
                             placeBetController.execute(title, wagerChoice, winnerChoice);
                         }
@@ -104,7 +108,10 @@ public class ScheduleView extends JPanel implements ActionListener, PropertyChan
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         setScheduleData(getScheduleData());
+        ScheduleState state = (ScheduleState) evt.getNewValue();
+        user = state.getUser();
     }
+
 
     private void setScheduleData(String[][] data){
         String[] columnNames = {"Home Team", "HomeScore", "AwayScore", "Away Team", "Date"};

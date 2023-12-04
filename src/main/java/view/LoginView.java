@@ -81,7 +81,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(cancel)){
-                            navigationController.execute("start up");
+                            navigationController.execute("start up", "");
                         }
                     }
                 }
@@ -91,7 +91,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
             @Override
             public void keyTyped(KeyEvent e) {
                 LoginState currentState = loginViewModel.getState();
-                currentState.setUsername(usernameInputField.getText());
+                currentState.setUsername(usernameInputField.getText() + e.getKeyChar());
                 loginViewModel.setState(currentState);
             }
 
@@ -108,8 +108,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                     @Override
                     public void keyTyped(KeyEvent e) {
                         LoginState currentState = loginViewModel.getState();
-                        char[] passwordChars = passwordInputField.getPassword();
-                        currentState.setPassword(new String(passwordChars));
+                        currentState.setPassword(passwordInputField.getText() + e.getKeyChar());
                         loginViewModel.setState(currentState);
                     }
 
@@ -143,6 +142,9 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     public void propertyChange(PropertyChangeEvent evt) {
         LoginState state = (LoginState) evt.getNewValue();
         setFields(state);
+        if (state.getUsernameError() != null) {
+            JOptionPane.showMessageDialog(this, state.getUsernameError());
+        }
     }
 
     private void setFields(LoginState state) {

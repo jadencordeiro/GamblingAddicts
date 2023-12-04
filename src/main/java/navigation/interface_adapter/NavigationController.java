@@ -11,8 +11,8 @@ public class NavigationController {
         this.navigationUseCaseInteractor = navigationUseCaseInteractor;
     }
 
-    public void execute(String name){
-        NavigationInputData navigationInputData = new NavigationInputData(name);
+    public void execute(String name, String user){
+        NavigationInputData navigationInputData = new NavigationInputData(name, user);
         navigationUseCaseInteractor.execute(navigationInputData);
     }
 }

@@ -10,6 +10,7 @@ public class Bet {
     private float wager;
 
     private boolean betOnHome;
+    private float payout;
 
     public Bet(String eventTitle){
         this.eventTitle = eventTitle;
@@ -32,13 +33,24 @@ public class Bet {
     public boolean getBettingSide() {return this.betOnHome;}
     public void setBettingSide(boolean Team) {this.betOnHome = Team;}
 
+    public float getPayout() {
+        return payout;
+    }
+
+    public void setPayout(float payout) {
+        this.payout = payout;
+    }
+
     /**
      * Payout if bet placed on the winning team.
      * @return The winning amount.
      */
+/*
     public float payout(){
         if (event.getResult() == this.getBettingSide()){return this.getWager() * event.getHomeOdds();}
         else if (!(event.getResult() == this.getBettingSide())){return this.getWager() * event.getAwayOdds();}
         else return 0.0F;
     }// needs to be modified
+*/
 }
+

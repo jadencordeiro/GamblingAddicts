@@ -35,7 +35,7 @@ public class GamblingStartupView extends JPanel implements ActionListener, Prope
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(signUp)){
-                            navigationController.execute("sign up");
+                            navigationController.execute("sign up", "");
                         }
                     }
                 }
@@ -47,7 +47,7 @@ public class GamblingStartupView extends JPanel implements ActionListener, Prope
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(logIn)){
-                            navigationController.execute("log in");
+                            navigationController.execute("log in", "");
                         }
                     }
                 }
