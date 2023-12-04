@@ -1,5 +1,9 @@
 package app;
 
+import bet.data_access.BetDataAccessObject;
+import bet.entity.BetFactory;
+import bet.interface_adapters.PlaceBetController;
+import bet.interface_adapters.PlaceBetViewModel;
 import interface_adapter.ViewManagerModel;
 import navigation.interface_adapter.NavigationController;
 import schedule.data_access.FileScheduleDataAccessObject;
@@ -33,6 +37,7 @@ public class Main {
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
         ScheduleViewModel scheduleViewModel = new ScheduleViewModel();
+        PlaceBetViewModel betViewModel = new PlaceBetViewModel();
 
         UserDataAccessObject userDataAccessObject;
         try {
@@ -50,6 +55,15 @@ public class Main {
             throw new RuntimeException(e);
         }
 
+        BetDataAccessObject betDataAccessObject;
+        try{
+            betDataAccessObject = new BetDataAccessObject("./bets.csv", new BetFactory());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        PlaceBetController placeBetController = PlaceBetUseCaseFactory.createPlaceBetController(viewManagerModel, betViewModel, betDataAccessObject);
+
         NavigationController navigationController = NavigationUseCaseFactory.createController(viewManagerModel);
 
         GamblingStartupView startupView = new GamblingStartupView(navigationController);
@@ -64,7 +78,7 @@ public class Main {
         LoggedInView loggedInView = LoggedInUseCaseFactory.create(viewManagerModel, loggedInViewModel);
         views.add(loggedInView, loggedInView.viewName);
 
-        ScheduleView scheduleView = ScheduleUseCaseFactory.create(viewManagerModel, scheduleViewModel, fileScheduleDataAccessObject, navigationController);
+        ScheduleView scheduleView = ScheduleUseCaseFactory.create(viewManagerModel, scheduleViewModel, fileScheduleDataAccessObject, navigationController, placeBetController);
         views.add(scheduleView, scheduleView.viewName);
 
         viewManagerModel.setActiveView(startupView.viewName);
