@@ -9,6 +9,8 @@ public class ScheduleViewModel extends ViewModel {
 
     public static final String TITLE_LABEL = "Schedule";
     public static final String REFRESH_BUTTON_LABEL = "Refresh";
+    public static final String HOME_BUTTON_LABEL = "Home";
+    public static final String BET_BUTTON_LABEL = "Bet";
     public ScheduleState state = new ScheduleState();
 
     public ScheduleViewModel(){

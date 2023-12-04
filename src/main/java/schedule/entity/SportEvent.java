@@ -5,14 +5,25 @@ import org.jetbrains.annotations.NotNull;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 
+/**
+ * id: the id of the game.
+ * home: home team
+ * away: away team
+ * date: the time when the game start
+ * week: week id in the season
+ * result: true if home is winner, false if away is winner
+ * activity: indicator of the status of the game. -1 game is yet to start, 0 game in progress, 1 game completed
+ * homeScore: score of home team
+ * awayScore: score of away team
+ */
 public class SportEvent implements Event {
     final private int id;
     final private String home;
     final private String away;
     final private LocalDateTime date;
     final private String week;
-    private boolean result; // true if home is winner, false if away is winner
-    private int activity = -1; // -1 game is yet to start, 0 game in progress, 1 game completed
+    private boolean result;
+    private int activity = -1;
     private int homeScore = 0;
     private int awayScore = 0;
 

@@ -12,7 +12,6 @@ public class ProfilePageView extends JFrame {
     private JTextField betHistoryField;
     private JButton saveButton;
     private JButton cashOutButton; // Calls Settlement
-    private JButton
 
     public ProfilePageView() {
         setTitle("Profile Page");

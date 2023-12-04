@@ -1,4 +1,9 @@
 package bet.use_case;
 
-public class BetTransactionDataAccessInterface {
+import bet.entity.Bet;
+public interface BetTransactionDataAccessInterface {
+
+    boolean existsByName(String identifier);
+    void save(Bet bet);
+    Bet get(String eventTitle);
 }

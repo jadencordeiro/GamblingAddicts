@@ -12,5 +12,5 @@ public interface RefreshScheduleDataAccessInterface {
 
     Map<String, Event> getEvents();
 
-    void delete(Event event);
+    void delete();
 }

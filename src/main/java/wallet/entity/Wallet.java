@@ -1,7 +1,7 @@
 package wallet.entity;
 
 
-import bet.Bet;
+import bet.entity.Bet;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -33,6 +33,11 @@ public class Wallet {
     public void setBalance(float updatedBalance) {this.balance = updatedBalance;}
     public String getWalletName(){return this.name;}
 
+    public class InsufficientFundsException extends RuntimeException {
+        public InsufficientFundsException(String message) {
+            super(message);
+        }
+    }
     public HashMap<Bet, Float> getBets() {
         return this.betHistory;
     }
@@ -40,9 +45,13 @@ public class Wallet {
         return this.transactionHistory;
     }
     public void  setBets(Bet bet, Float amount) {
+        if (amount > this.getBalance()){
+            throw new InsufficientFundsException("Insufficient Funds");
+        }
         //put method updates value based on key or creates a new entry for key, so no need to
         //check whether the bet already exists in the History
          this.betHistory.put(bet, amount);
+         // raise error when insufficient funds?
     }
     public void setTransactionHistory( LocalDateTime ldt, Float amount) {
         this.transactionHistory.put(ldt, amount);

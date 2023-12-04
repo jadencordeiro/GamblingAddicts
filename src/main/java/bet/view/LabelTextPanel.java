@@ -1,4 +1,4 @@
-package user.view;
+package bet.view;
 
 
 import javax.swing.*;
