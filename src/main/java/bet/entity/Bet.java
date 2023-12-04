@@ -11,12 +11,15 @@ public class Bet {
 
     private boolean betOnHome;
 
-    public Bet(String eventTitle){
+    private String userName;
+    public Bet(String eventTitle, String userName){
         this.eventTitle = eventTitle;
 
         this.wager = 0.0F;
 
         this.betOnHome = true;
+
+        this.userName = userName;
     }
 
     public String getEventTitle(){
@@ -31,6 +34,8 @@ public class Bet {
     // True when betting on Home, False when betting on Away
     public boolean getBettingSide() {return this.betOnHome;}
     public void setBettingSide(boolean Team) {this.betOnHome = Team;}
+
+    public String getUserName(){return this.userName;}
 
     /**
      * Payout if bet placed on the winning team.

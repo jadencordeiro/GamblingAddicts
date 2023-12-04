@@ -5,15 +5,20 @@ public class BetTransactionInputData {
     final private boolean betOnHome;
     final private String eventTitle;
 
-    public BetTransactionInputData(String eventTitle, float wager, boolean betOnHome){
+    final private String username;
+
+    public BetTransactionInputData(String eventTitle, float wager, boolean betOnHome, String username){
         this.eventTitle = eventTitle;
         this.wager = wager;
         this.betOnHome = betOnHome;
+        this.username = username;
     }
 
     String getEventTitle(){return eventTitle;}
     float getWager(){return wager;}
 
     boolean getBetOnHome() {return betOnHome;}
+
+    String getUsername(){return username;}
 
 }
