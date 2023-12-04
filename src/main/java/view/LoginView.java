@@ -2,6 +2,7 @@ package view;
 
 
 import navigation.interface_adapter.NavigationController;
+import user.interface_adapter.LoginController;
 import user.interface_adapter.LoginState;
 import user.interface_adapter.LoginViewModel;
 
@@ -18,6 +19,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     public final String viewName = "log in";
     private final LoginViewModel loginViewModel;
+
+    private final LoginController loginController;
 
     /**
      * The username chosen by the user
@@ -38,7 +41,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     /**
      * A window with a title and a JButton.
      */
-    public LoginView(LoginViewModel loginViewModel, NavigationController navigationController) {
+    public LoginView(LoginController controller, LoginViewModel loginViewModel, NavigationController navigationController) {
+        this.loginController = controller;
         this.loginViewModel = loginViewModel;
         this.navigationController = navigationController;
         this.loginViewModel.addPropertyChangeListener(this);
@@ -57,7 +61,17 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         cancel = new JButton(loginViewModel.CANCEL_BUTTON_LABEL);
         buttons.add(cancel);
 
-        logIn.addActionListener(this);
+        logIn.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(logIn)){
+                            loginController.execute(loginViewModel.getState().getUsername(),
+                                    String.valueOf(loginViewModel.getState().getPassword()));
+                        }
+                    }
+                }
+        );
         cancel.addActionListener(
 
                 new ActionListener() {
