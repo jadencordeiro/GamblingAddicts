@@ -35,7 +35,7 @@ public class UserTransactionInteractor implements UserTransactionInputBoundary {
                 wallet.setTransactionHistory(ldt, (-1.0F * amount));
             }
             UserTransactionOutputData userTransactionOutputData = new UserTransactionOutputData(name, amount, ldt,
-                    false);
+                    wallet.getTransactionHistory(), false);
             userTransactionPresenter.prepareSuccessView(userTransactionOutputData);
         }
     }

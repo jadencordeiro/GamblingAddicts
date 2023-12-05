@@ -10,4 +10,4 @@
 * Event
 * Schedule
 * Bet
-* Wallet
+* wallet
