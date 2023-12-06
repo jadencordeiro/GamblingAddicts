@@ -37,6 +37,22 @@ public class Bet {
 
     public String getUserName(){return this.userName;}
 
+    @Override
+    public String toString() {
+        String betDescription = this.userName + "bet on" + this.eventTitle;
+        return betDescription;
+    }
+
+    // Static method to create a Bet object from a string representation
+    public static Bet parseBet(String betString) {
+        String[] parts = betString.split(" bet on ");  // Assuming some delimiter, adjust as needed
+        if (parts.length == 2) {
+            return new Bet(parts[0], parts[1]);
+        } else {
+            // Handle invalid string representation
+            throw new IllegalArgumentException("Invalid bet string: " + betString);
+        }
+    }
     /**
      * Payout if bet placed on the winning team.
      * @return The winning amount.
