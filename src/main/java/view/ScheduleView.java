@@ -83,7 +83,8 @@ public class ScheduleView extends JPanel implements ActionListener, PropertyChan
                             float wagerChoice = Float.parseFloat(JOptionPane.showInputDialog("How much would you like to wager?"));
                             boolean winnerChoice = JOptionPane.showInputDialog("Which team would you like to bet on?").equals("home");
                             String title = currentData[eventChoice - 1][0] + " vs " + currentData[eventChoice - 1][3];
-                            placeBetController.execute(title, wagerChoice, winnerChoice);
+                            String username = (JOptionPane.showInputDialog("What is your username?"));
+                            placeBetController.execute(title, wagerChoice, winnerChoice, username);
                         }
                     }
                 }

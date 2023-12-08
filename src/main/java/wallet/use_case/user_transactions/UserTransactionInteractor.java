@@ -21,7 +21,7 @@ public class UserTransactionInteractor implements UserTransactionInputBoundary {
         float amount = userTransactionInputData.getAmount();
         LocalDateTime ldt = userTransactionInputData.getLdt();
         boolean isDeposit = userTransactionInputData.getIsDeposit();
-        Wallet wallet = userDataAccessObject.getWallet(name);
+        Wallet wallet = userDataAccessObject.loadWallets().get(name);
 
 
         if ((amount < 0.0) || (amount > wallet.getBalance())) {
@@ -38,5 +38,6 @@ public class UserTransactionInteractor implements UserTransactionInputBoundary {
                     wallet.getTransactionHistory(), false);
             userTransactionPresenter.prepareSuccessView(userTransactionOutputData);
         }
+        userDataAccessObject.saveWallet(wallet);
     }
 }
